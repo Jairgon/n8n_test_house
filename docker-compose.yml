@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Supabase
+      POSTGRES_DB: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+  n8n:
+    image: docker.n8n.io/n8nio/n8n
+    ports:
+      - "5678:5678"
+    environment:
+      DB_TYPE: postgresdb
+      DB_POSTGRESDB_HOST: postgres
+      DB_POSTGRESDB_PORT: 5432
+      DB_POSTGRESDB_DATABASE: postgres
+      DB_POSTGRESDB_USER: postgres
+      DB_POSTGRESDB_PASSWORD: Supabase
+      DB_POSTGRESDB_SCHEMA: public
+      N8N_ENCRYPTION_KEY: mystrongencryptionkey
+      # ✅ Añadir estas variables
+      # N8N_HOST:  xxxxxx.ngrok-free.app          # <-- reemplaza con tu dominio real
+      # N8N_PROTOCOL: https
+      # WEBHOOK_URL:    https://xxxx.ngrok-free.app # <-- reemplaza también aquí
+      # N8N_BASIC_AUTH_ACTIVE: true
+      # N8N_BASIC_AUTH_USER: jairgon3456@gmail.com
+      # N8N_BASIC_AUTH_PASSWORD: Digitro16+%
+    volumes:
+      - n8n_data:/home/node/.n8n
+    restart: always
+
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - "8080:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    restart: always
+
+volumes:
+  postgres_data:
+  n8n_data:
+  pgadmin_data:
