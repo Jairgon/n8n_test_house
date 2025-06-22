@@ -5,7 +5,7 @@ FROM docker.n8n.io/n8nio/n8n
 WORKDIR /home/node
 
 # Crea directorio para almacenamiento persistente
-RUN mkdir .n8n && chown node:node .n8n
+# RUN mkdir .n8n && chown node:node .n8n
 
 # Usa el usuario 'node' no root
 USER node
