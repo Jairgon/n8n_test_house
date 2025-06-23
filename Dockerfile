@@ -1,17 +1,8 @@
-# Usa la imagen oficial de n8n
-FROM docker.n8n.io/n8nio/n8n
 
-# Define el directorio de trabajo
-WORKDIR /home/node
+FROM docker.n8n.io/n8nio/n8n:latest
 
-# Crea directorio para almacenamiento persistente
-# RUN mkdir .n8n && chown node:node .n8n
+# Set working directory (optional, good practice)
+WORKDIR /data
 
-# Usa el usuario 'node' no root
-USER node
-
-# Expone el puerto usado por n8n
+# Expose the port n8n uses
 EXPOSE 5678
-
-# Comando para iniciar n8n
-CMD ["n8n"]
